@@ -37,26 +37,18 @@ class SakeViewModel extends ChangeNotifier {
     }
   }
 
-  // void getSakeDetailsById(int sakeId) {
-  //   _sakeDetails = _sakeList
-  //       .firstWhere((sake) => sake.id == sakeId /* , orElse: () => null */);
-  //   notifyListeners();
-  // }
-
   Future<void> fetchSakeDetails(int sakeId) async {
+    if (_isFetching) return;
+    _isFetching = true;
+    notifyListeners();
     try {
       _sakeDetails = await repository.fetchBrandDetail(sakeId);
       notifyListeners();
     } catch (e) {
       print('Error fetching sake details: $e');
+    } finally {
+      _isFetching = false;
+      notifyListeners();
     }
   }
-  // Future<void> fetchSakeDetails(int sakeId) async {
-  //   try {
-  //     _sakeDetails = await repository.fetchSakeDetails(sakeId);
-  //     notifyListeners();
-  //   } catch (e) {
-  //     print('Error fetching sake details: $e');
-  //   }
-  // }
 }
