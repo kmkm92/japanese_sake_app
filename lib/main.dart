@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'ui/screens/sake_list_screen.dart';
+import 'package:japanese_sake_app/ui/widgets/bottom_navigation.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -14,7 +14,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SakeListScreen(),
+      home: BottomNavigation(
+        currentIndex: 0,
+        onTap: (index) {
+          print('tapped: $index');
+        },
+      ),
     );
   }
 }
