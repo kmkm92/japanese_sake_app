@@ -83,12 +83,13 @@ class SakeApi {
       final response = await http.get(Uri.parse('$baseUrl/flavor-charts'));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
-
+        print('API Response: $data');
         if (data.containsKey('flavorCharts') && data['flavorCharts'] != null) {
           // List<dynamic>をList<Map<String, dynamic>>にキャストしてからパースする
           final flavorCharts = (data['flavorCharts'] as List<dynamic>)
               .map((json) => FlavorChart.fromJson(json as Map<String, dynamic>))
               .toList();
+          print('flavorCharts: $flavorCharts');
           return flavorCharts;
         } else {
           throw Exception('FlavorChart data is null');
