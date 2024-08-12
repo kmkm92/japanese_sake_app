@@ -20,11 +20,15 @@ class SakeViewModel extends ChangeNotifier {
   int _currentPage = 1;
   final int _perPage = 20;
 
-  Future<void> fetchSakeList() async {
+  Future<void> fetchSakeList({bool clearList = false}) async {
     if (_isFetching) return;
     _isFetching = true;
     notifyListeners();
     try {
+      if (clearList) {
+        _sakeList.clear();
+        _currentPage = 1;
+      }
       List<Brand> newSakeList =
           await repository.fetchSakeList(page: _currentPage, perPage: _perPage);
       _sakeList.addAll(newSakeList);

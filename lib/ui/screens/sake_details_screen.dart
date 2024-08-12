@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:japanese_sake_app/database/app_database.dart';
 import 'package:japanese_sake_app/providers/database_providers.dart';
+import 'package:japanese_sake_app/ui/widgets/radar_chart.dart';
 import '../../providers/sake_providers.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class SakeDetailsScreen extends ConsumerWidget {
   final int sakeId;
@@ -28,8 +30,8 @@ class SakeDetailsScreen extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('ID: ${sakeViewModel.sakeDetails?.id}',
-                          style: TextStyle(fontSize: 24)),
+                      // Text('ID: ${sakeViewModel.sakeDetails?.id}',
+                      //     style: TextStyle(fontSize: 24)),
                       SizedBox(height: 8),
                       Text('Name: ${sakeViewModel.sakeDetails?.brand}',
                           style: TextStyle(fontSize: 24)),
@@ -40,13 +42,25 @@ class SakeDetailsScreen extends ConsumerWidget {
                       Text('Area: ${sakeViewModel.sakeDetails?.area}',
                           style: TextStyle(fontSize: 18)),
                       SizedBox(height: 8),
-                      Text('Flavor Chart: ${sakeViewModel.sakeDetails?.chart}',
-                          style: TextStyle(fontSize: 18)),
-                      SizedBox(height: 8),
                       Text(
                           'Tags: ${sakeViewModel.sakeDetails?.tags?.tagIds.join(", ")}',
                           style: TextStyle(fontSize: 18)),
                       SizedBox(height: 8),
+                      if (sakeViewModel.sakeDetails?.chart?.f1 != 0.0 ||
+                          sakeViewModel.sakeDetails?.chart?.f2 != 0.0 ||
+                          sakeViewModel.sakeDetails?.chart?.f3 != 0.0 ||
+                          sakeViewModel.sakeDetails?.chart?.f4 != 0.0 ||
+                          sakeViewModel.sakeDetails?.chart?.f5 != 0.0 ||
+                          sakeViewModel.sakeDetails?.chart?.f6 != 0.0)
+                        RadarChartWidget(
+                          gorgeous: sakeViewModel.sakeDetails?.chart?.f1 ?? 0.0,
+                          mellow: sakeViewModel.sakeDetails?.chart?.f2 ?? 0.0,
+                          profound: sakeViewModel.sakeDetails?.chart?.f3 ?? 0.0,
+                          clam: sakeViewModel.sakeDetails?.chart?.f4 ?? 0.0,
+                          dry: sakeViewModel.sakeDetails?.chart?.f5 ?? 0.0,
+                          nimble: sakeViewModel.sakeDetails?.chart?.f6 ?? 0.0,
+                        ),
+                      SizedBox(height: 20),
                       ButtonBar(
                         alignment: MainAxisAlignment.center,
                         children: [

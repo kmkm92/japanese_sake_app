@@ -38,7 +38,7 @@ class SakeRepository {
     final brandFlavorTag = brandFlavorTagMap[brand?.id];
 
     final flavorTags = await api.fetchFlavorTags();
-    print(flavorTags);
+
     final flavorTagMap = {for (var tag in flavorTags) tag.id: tag};
     final tags = brandFlavorTag?.tagIds
             .map((id) => flavorTagMap[id]?.name)

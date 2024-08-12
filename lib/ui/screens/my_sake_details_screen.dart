@@ -1,7 +1,9 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:japanese_sake_app/database/app_database.dart';
 import 'package:japanese_sake_app/providers/database_providers.dart';
+import 'package:japanese_sake_app/ui/widgets/radar_chart.dart';
 // 未使用のインポートを削除
 // import 'package:japanese_sake_app/models/brand_detail.dart';
 
@@ -33,6 +35,11 @@ class MySakeDetailsScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
+                    '銘柄: ${details.brand}',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
                     '酒蔵: ${details.brewery}',
                     style: TextStyle(fontSize: 18),
                   ),
@@ -43,39 +50,23 @@ class MySakeDetailsScreen extends ConsumerWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'ゴージャス: ${details.gorgeous}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'まろやか: ${details.mellow}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    '重厚: ${details.profound}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    '穏やか: ${details.clam}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'ドライ: ${details.dry}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    '軽快: ${details.nimble}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
                     'メモ: ${details.memo}',
                     style: TextStyle(fontSize: 18),
                   ),
+                  if (details.gorgeous != 0.0 ||
+                      details.mellow != 0.0 ||
+                      details.profound != 0.0 ||
+                      details.clam != 0.0 ||
+                      details.dry != 0.0 ||
+                      details.nimble != 0.0)
+                    RadarChartWidget(
+                      gorgeous: details.gorgeous,
+                      mellow: details.mellow,
+                      profound: details.profound,
+                      clam: details.clam,
+                      dry: details.dry,
+                      nimble: details.nimble,
+                    ),
                 ],
               ),
             ),
