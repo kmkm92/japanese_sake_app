@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:japanese_sake_app/ui/screens/add_mt_sake_list_screen.dart';
 
 class MySakeListScreen extends StatelessWidget {
   const MySakeListScreen({Key? key}) : super(key: key);
@@ -19,6 +20,15 @@ class MySakeListScreen extends StatelessWidget {
             trailing: Text('評価: ${(index % 5 + 1).toString()}'),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddSakeScreen()),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
