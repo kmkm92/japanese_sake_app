@@ -30,12 +30,13 @@ class MyBrandsNotifier extends StateNotifier<List<MyBrand>> {
     return result;
   }
 
-  Future<void> addBrand(MyBrandsCompanion brand) async {
-    await _db.into(_db.myBrands).insert(brand);
+  Future<int> addBrand(MyBrandsCompanion brand) async {
+    final newBrand = await _db.into(_db.myBrands).insertReturning(brand);
     _loadBrands();
+    return newBrand.id;
   }
 
-  Future<void> updateBrand(MyBrand brand) async {
+  Future<void> updateBrand(MyBrandsCompanion brand) async {
     await _db.update(_db.myBrands).replace(brand);
     _loadBrands();
   }

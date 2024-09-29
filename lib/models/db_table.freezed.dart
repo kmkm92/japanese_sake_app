@@ -22,6 +22,7 @@ MyBrand _$MyBrandFromJson(Map<String, dynamic> json) {
 mixin _$MyBrand {
   int get id => throw _privateConstructorUsedError;
   String get brand => throw _privateConstructorUsedError;
+  String get subName => throw _privateConstructorUsedError;
   String get kana => throw _privateConstructorUsedError;
   String get brewery => throw _privateConstructorUsedError;
   String get area => throw _privateConstructorUsedError;
@@ -31,7 +32,10 @@ mixin _$MyBrand {
   double get clam => throw _privateConstructorUsedError;
   double get dry => throw _privateConstructorUsedError;
   double get nimble => throw _privateConstructorUsedError;
-  String get memo => throw _privateConstructorUsedError;
+  int get count => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  bool get favorite => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,6 +50,7 @@ abstract class $MyBrandCopyWith<$Res> {
   $Res call(
       {int id,
       String brand,
+      String subName,
       String kana,
       String brewery,
       String area,
@@ -55,7 +60,10 @@ abstract class $MyBrandCopyWith<$Res> {
       double clam,
       double dry,
       double nimble,
-      String memo});
+      int count,
+      String type,
+      DateTime updatedAt,
+      bool favorite});
 }
 
 /// @nodoc
@@ -73,6 +81,7 @@ class _$MyBrandCopyWithImpl<$Res, $Val extends MyBrand>
   $Res call({
     Object? id = null,
     Object? brand = null,
+    Object? subName = null,
     Object? kana = null,
     Object? brewery = null,
     Object? area = null,
@@ -82,7 +91,10 @@ class _$MyBrandCopyWithImpl<$Res, $Val extends MyBrand>
     Object? clam = null,
     Object? dry = null,
     Object? nimble = null,
-    Object? memo = null,
+    Object? count = null,
+    Object? type = null,
+    Object? updatedAt = null,
+    Object? favorite = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -92,6 +104,10 @@ class _$MyBrandCopyWithImpl<$Res, $Val extends MyBrand>
       brand: null == brand
           ? _value.brand
           : brand // ignore: cast_nullable_to_non_nullable
+              as String,
+      subName: null == subName
+          ? _value.subName
+          : subName // ignore: cast_nullable_to_non_nullable
               as String,
       kana: null == kana
           ? _value.kana
@@ -129,10 +145,22 @@ class _$MyBrandCopyWithImpl<$Res, $Val extends MyBrand>
           ? _value.nimble
           : nimble // ignore: cast_nullable_to_non_nullable
               as double,
-      memo: null == memo
-          ? _value.memo
-          : memo // ignore: cast_nullable_to_non_nullable
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      favorite: null == favorite
+          ? _value.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -147,6 +175,7 @@ abstract class _$$MyBrandImplCopyWith<$Res> implements $MyBrandCopyWith<$Res> {
   $Res call(
       {int id,
       String brand,
+      String subName,
       String kana,
       String brewery,
       String area,
@@ -156,7 +185,10 @@ abstract class _$$MyBrandImplCopyWith<$Res> implements $MyBrandCopyWith<$Res> {
       double clam,
       double dry,
       double nimble,
-      String memo});
+      int count,
+      String type,
+      DateTime updatedAt,
+      bool favorite});
 }
 
 /// @nodoc
@@ -172,6 +204,7 @@ class __$$MyBrandImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? brand = null,
+    Object? subName = null,
     Object? kana = null,
     Object? brewery = null,
     Object? area = null,
@@ -181,7 +214,10 @@ class __$$MyBrandImplCopyWithImpl<$Res>
     Object? clam = null,
     Object? dry = null,
     Object? nimble = null,
-    Object? memo = null,
+    Object? count = null,
+    Object? type = null,
+    Object? updatedAt = null,
+    Object? favorite = null,
   }) {
     return _then(_$MyBrandImpl(
       id: null == id
@@ -191,6 +227,10 @@ class __$$MyBrandImplCopyWithImpl<$Res>
       brand: null == brand
           ? _value.brand
           : brand // ignore: cast_nullable_to_non_nullable
+              as String,
+      subName: null == subName
+          ? _value.subName
+          : subName // ignore: cast_nullable_to_non_nullable
               as String,
       kana: null == kana
           ? _value.kana
@@ -228,10 +268,22 @@ class __$$MyBrandImplCopyWithImpl<$Res>
           ? _value.nimble
           : nimble // ignore: cast_nullable_to_non_nullable
               as double,
-      memo: null == memo
-          ? _value.memo
-          : memo // ignore: cast_nullable_to_non_nullable
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      favorite: null == favorite
+          ? _value.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -242,6 +294,7 @@ class _$MyBrandImpl implements _MyBrand {
   const _$MyBrandImpl(
       {required this.id,
       required this.brand,
+      this.subName = '',
       this.kana = '',
       this.brewery = '',
       this.area = '',
@@ -251,7 +304,10 @@ class _$MyBrandImpl implements _MyBrand {
       this.clam = 0.0,
       this.dry = 0.0,
       this.nimble = 0.0,
-      this.memo = ''});
+      this.count = 0,
+      this.type = '',
+      required this.updatedAt,
+      this.favorite = false});
 
   factory _$MyBrandImpl.fromJson(Map<String, dynamic> json) =>
       _$$MyBrandImplFromJson(json);
@@ -260,6 +316,9 @@ class _$MyBrandImpl implements _MyBrand {
   final int id;
   @override
   final String brand;
+  @override
+  @JsonKey()
+  final String subName;
   @override
   @JsonKey()
   final String kana;
@@ -289,11 +348,19 @@ class _$MyBrandImpl implements _MyBrand {
   final double nimble;
   @override
   @JsonKey()
-  final String memo;
+  final int count;
+  @override
+  @JsonKey()
+  final String type;
+  @override
+  final DateTime updatedAt;
+  @override
+  @JsonKey()
+  final bool favorite;
 
   @override
   String toString() {
-    return 'MyBrand(id: $id, brand: $brand, kana: $kana, brewery: $brewery, area: $area, gorgeous: $gorgeous, mellow: $mellow, profound: $profound, clam: $clam, dry: $dry, nimble: $nimble, memo: $memo)';
+    return 'MyBrand(id: $id, brand: $brand, subName: $subName, kana: $kana, brewery: $brewery, area: $area, gorgeous: $gorgeous, mellow: $mellow, profound: $profound, clam: $clam, dry: $dry, nimble: $nimble, count: $count, type: $type, updatedAt: $updatedAt, favorite: $favorite)';
   }
 
   @override
@@ -303,6 +370,7 @@ class _$MyBrandImpl implements _MyBrand {
             other is _$MyBrandImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.brand, brand) || other.brand == brand) &&
+            (identical(other.subName, subName) || other.subName == subName) &&
             (identical(other.kana, kana) || other.kana == kana) &&
             (identical(other.brewery, brewery) || other.brewery == brewery) &&
             (identical(other.area, area) || other.area == area) &&
@@ -314,13 +382,34 @@ class _$MyBrandImpl implements _MyBrand {
             (identical(other.clam, clam) || other.clam == clam) &&
             (identical(other.dry, dry) || other.dry == dry) &&
             (identical(other.nimble, nimble) || other.nimble == nimble) &&
-            (identical(other.memo, memo) || other.memo == memo));
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.favorite, favorite) ||
+                other.favorite == favorite));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, brand, kana, brewery, area,
-      gorgeous, mellow, profound, clam, dry, nimble, memo);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      brand,
+      subName,
+      kana,
+      brewery,
+      area,
+      gorgeous,
+      mellow,
+      profound,
+      clam,
+      dry,
+      nimble,
+      count,
+      type,
+      updatedAt,
+      favorite);
 
   @JsonKey(ignore: true)
   @override
@@ -340,6 +429,7 @@ abstract class _MyBrand implements MyBrand {
   const factory _MyBrand(
       {required final int id,
       required final String brand,
+      final String subName,
       final String kana,
       final String brewery,
       final String area,
@@ -349,7 +439,10 @@ abstract class _MyBrand implements MyBrand {
       final double clam,
       final double dry,
       final double nimble,
-      final String memo}) = _$MyBrandImpl;
+      final int count,
+      final String type,
+      required final DateTime updatedAt,
+      final bool favorite}) = _$MyBrandImpl;
 
   factory _MyBrand.fromJson(Map<String, dynamic> json) = _$MyBrandImpl.fromJson;
 
@@ -357,6 +450,8 @@ abstract class _MyBrand implements MyBrand {
   int get id;
   @override
   String get brand;
+  @override
+  String get subName;
   @override
   String get kana;
   @override
@@ -376,7 +471,13 @@ abstract class _MyBrand implements MyBrand {
   @override
   double get nimble;
   @override
-  String get memo;
+  int get count;
+  @override
+  String get type;
+  @override
+  DateTime get updatedAt;
+  @override
+  bool get favorite;
   @override
   @JsonKey(ignore: true)
   _$$MyBrandImplCopyWith<_$MyBrandImpl> get copyWith =>
@@ -529,6 +630,246 @@ abstract class _MyTag implements MyTag {
   @override
   @JsonKey(ignore: true)
   _$$MyTagImplCopyWith<_$MyTagImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MyMemo _$MyMemoFromJson(Map<String, dynamic> json) {
+  return _MyMemo.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MyMemo {
+  int get id => throw _privateConstructorUsedError;
+  int get brandId => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  String get memo => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $MyMemoCopyWith<MyMemo> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MyMemoCopyWith<$Res> {
+  factory $MyMemoCopyWith(MyMemo value, $Res Function(MyMemo) then) =
+      _$MyMemoCopyWithImpl<$Res, MyMemo>;
+  @useResult
+  $Res call(
+      {int id,
+      int brandId,
+      String title,
+      String memo,
+      DateTime createdAt,
+      DateTime updatedAt});
+}
+
+/// @nodoc
+class _$MyMemoCopyWithImpl<$Res, $Val extends MyMemo>
+    implements $MyMemoCopyWith<$Res> {
+  _$MyMemoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? brandId = null,
+    Object? title = null,
+    Object? memo = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      brandId: null == brandId
+          ? _value.brandId
+          : brandId // ignore: cast_nullable_to_non_nullable
+              as int,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      memo: null == memo
+          ? _value.memo
+          : memo // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MyMemoImplCopyWith<$Res> implements $MyMemoCopyWith<$Res> {
+  factory _$$MyMemoImplCopyWith(
+          _$MyMemoImpl value, $Res Function(_$MyMemoImpl) then) =
+      __$$MyMemoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      int brandId,
+      String title,
+      String memo,
+      DateTime createdAt,
+      DateTime updatedAt});
+}
+
+/// @nodoc
+class __$$MyMemoImplCopyWithImpl<$Res>
+    extends _$MyMemoCopyWithImpl<$Res, _$MyMemoImpl>
+    implements _$$MyMemoImplCopyWith<$Res> {
+  __$$MyMemoImplCopyWithImpl(
+      _$MyMemoImpl _value, $Res Function(_$MyMemoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? brandId = null,
+    Object? title = null,
+    Object? memo = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_$MyMemoImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      brandId: null == brandId
+          ? _value.brandId
+          : brandId // ignore: cast_nullable_to_non_nullable
+              as int,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      memo: null == memo
+          ? _value.memo
+          : memo // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MyMemoImpl implements _MyMemo {
+  const _$MyMemoImpl(
+      {required this.id,
+      required this.brandId,
+      required this.title,
+      this.memo = '',
+      required this.createdAt,
+      required this.updatedAt});
+
+  factory _$MyMemoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MyMemoImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final int brandId;
+  @override
+  final String title;
+  @override
+  @JsonKey()
+  final String memo;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
+
+  @override
+  String toString() {
+    return 'MyMemo(id: $id, brandId: $brandId, title: $title, memo: $memo, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MyMemoImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.brandId, brandId) || other.brandId == brandId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.memo, memo) || other.memo == memo) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, brandId, title, memo, createdAt, updatedAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MyMemoImplCopyWith<_$MyMemoImpl> get copyWith =>
+      __$$MyMemoImplCopyWithImpl<_$MyMemoImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MyMemoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MyMemo implements MyMemo {
+  const factory _MyMemo(
+      {required final int id,
+      required final int brandId,
+      required final String title,
+      final String memo,
+      required final DateTime createdAt,
+      required final DateTime updatedAt}) = _$MyMemoImpl;
+
+  factory _MyMemo.fromJson(Map<String, dynamic> json) = _$MyMemoImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  int get brandId;
+  @override
+  String get title;
+  @override
+  String get memo;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
+  @override
+  @JsonKey(ignore: true)
+  _$$MyMemoImplCopyWith<_$MyMemoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

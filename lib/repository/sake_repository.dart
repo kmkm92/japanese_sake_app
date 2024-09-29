@@ -38,15 +38,15 @@ class SakeRepository {
     final brandFlavorTag = brandFlavorTagMap[brand?.id];
 
     final flavorTags = await api.fetchFlavorTags();
-
     final flavorTagMap = {for (var tag in flavorTags) tag.id: tag};
+
     final tags = brandFlavorTag?.tagIds
-            .map((id) => flavorTagMap[id]?.name)
+            .map((id) => flavorTagMap[id]?.tag)
             .where((name) => name != null)
+            .map((name) => name as String)
             .toList() ??
         [];
 
-    print(tags);
     return BrandDetail(
       id: brand?.id ?? 0,
       brand: brand?.name ?? '',
@@ -54,7 +54,9 @@ class SakeRepository {
       area: area?.name ?? '',
       chart: chart,
       tags: BrandFlavorTag(
-          brandId: brand?.id ?? 0, tagIds: brandFlavorTag?.tagIds ?? []),
+          brandId: brand?.id ?? 0,
+          tagIds: brandFlavorTag?.tagIds ?? [],
+          tagNames: tags),
     );
   }
 }

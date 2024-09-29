@@ -108,8 +108,8 @@ class SakeApi {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
       if (data['tags'] != null) {
-        return (data['tags'] as List)
-            .map((json) => FlavorTag.fromJson(json))
+        return (data['tags'] as List<dynamic>)
+            .map((json) => FlavorTag.fromJson(json as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception('FlavorTags data is null');

@@ -23,8 +23,8 @@ class RadarChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250,
-      width: 250,
+      height: 150,
+      width: 150,
       child: RadarChart(
         RadarChartData(
           ticksTextStyle: const TextStyle(

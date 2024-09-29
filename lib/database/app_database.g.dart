@@ -22,6 +22,14 @@ class $MyBrandsTable extends MyBrands with TableInfo<$MyBrandsTable, MyBrand> {
   late final GeneratedColumn<String> brand = GeneratedColumn<String>(
       'brand', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _subNameMeta =
+      const VerificationMeta('subName');
+  @override
+  late final GeneratedColumn<String> subName = GeneratedColumn<String>(
+      'sub_name', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
   static const VerificationMeta _kanaMeta = const VerificationMeta('kana');
   @override
   late final GeneratedColumn<String> kana = GeneratedColumn<String>(
@@ -88,17 +96,43 @@ class $MyBrandsTable extends MyBrands with TableInfo<$MyBrandsTable, MyBrand> {
       type: DriftSqlType.double,
       requiredDuringInsert: false,
       defaultValue: const Constant(0.0));
-  static const VerificationMeta _memoMeta = const VerificationMeta('memo');
+  static const VerificationMeta _countMeta = const VerificationMeta('count');
   @override
-  late final GeneratedColumn<String> memo = GeneratedColumn<String>(
-      'memo', aliasedName, false,
+  late final GeneratedColumn<int> count = GeneratedColumn<int>(
+      'count', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _favoriteMeta =
+      const VerificationMeta('favorite');
+  @override
+  late final GeneratedColumn<bool> favorite = GeneratedColumn<bool>(
+      'favorite', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("favorite" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
         brand,
+        subName,
         kana,
         brewery,
         area,
@@ -108,7 +142,10 @@ class $MyBrandsTable extends MyBrands with TableInfo<$MyBrandsTable, MyBrand> {
         clam,
         dry,
         nimble,
-        memo
+        count,
+        type,
+        updatedAt,
+        favorite
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -128,6 +165,10 @@ class $MyBrandsTable extends MyBrands with TableInfo<$MyBrandsTable, MyBrand> {
           _brandMeta, brand.isAcceptableOrUnknown(data['brand']!, _brandMeta));
     } else if (isInserting) {
       context.missing(_brandMeta);
+    }
+    if (data.containsKey('sub_name')) {
+      context.handle(_subNameMeta,
+          subName.isAcceptableOrUnknown(data['sub_name']!, _subNameMeta));
     }
     if (data.containsKey('kana')) {
       context.handle(
@@ -165,9 +206,21 @@ class $MyBrandsTable extends MyBrands with TableInfo<$MyBrandsTable, MyBrand> {
       context.handle(_nimbleMeta,
           nimble.isAcceptableOrUnknown(data['nimble']!, _nimbleMeta));
     }
-    if (data.containsKey('memo')) {
+    if (data.containsKey('count')) {
       context.handle(
-          _memoMeta, memo.isAcceptableOrUnknown(data['memo']!, _memoMeta));
+          _countMeta, count.isAcceptableOrUnknown(data['count']!, _countMeta));
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    if (data.containsKey('favorite')) {
+      context.handle(_favoriteMeta,
+          favorite.isAcceptableOrUnknown(data['favorite']!, _favoriteMeta));
     }
     return context;
   }
@@ -182,6 +235,8 @@ class $MyBrandsTable extends MyBrands with TableInfo<$MyBrandsTable, MyBrand> {
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       brand: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}brand'])!,
+      subName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sub_name'])!,
       kana: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}kana'])!,
       brewery: attachedDatabase.typeMapping
@@ -200,8 +255,14 @@ class $MyBrandsTable extends MyBrands with TableInfo<$MyBrandsTable, MyBrand> {
           .read(DriftSqlType.double, data['${effectivePrefix}dry'])!,
       nimble: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}nimble'])!,
-      memo: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}memo'])!,
+      count: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}count'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+      favorite: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}favorite'])!,
     );
   }
 
@@ -214,6 +275,7 @@ class $MyBrandsTable extends MyBrands with TableInfo<$MyBrandsTable, MyBrand> {
 class MyBrand extends DataClass implements Insertable<MyBrand> {
   final int id;
   final String brand;
+  final String subName;
   final String kana;
   final String brewery;
   final String area;
@@ -223,10 +285,14 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
   final double clam;
   final double dry;
   final double nimble;
-  final String memo;
+  final int count;
+  final String type;
+  final DateTime updatedAt;
+  final bool favorite;
   const MyBrand(
       {required this.id,
       required this.brand,
+      required this.subName,
       required this.kana,
       required this.brewery,
       required this.area,
@@ -236,12 +302,16 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
       required this.clam,
       required this.dry,
       required this.nimble,
-      required this.memo});
+      required this.count,
+      required this.type,
+      required this.updatedAt,
+      required this.favorite});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['brand'] = Variable<String>(brand);
+    map['sub_name'] = Variable<String>(subName);
     map['kana'] = Variable<String>(kana);
     map['brewery'] = Variable<String>(brewery);
     map['area'] = Variable<String>(area);
@@ -251,7 +321,10 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
     map['clam'] = Variable<double>(clam);
     map['dry'] = Variable<double>(dry);
     map['nimble'] = Variable<double>(nimble);
-    map['memo'] = Variable<String>(memo);
+    map['count'] = Variable<int>(count);
+    map['type'] = Variable<String>(type);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    map['favorite'] = Variable<bool>(favorite);
     return map;
   }
 
@@ -259,6 +332,7 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
     return MyBrandsCompanion(
       id: Value(id),
       brand: Value(brand),
+      subName: Value(subName),
       kana: Value(kana),
       brewery: Value(brewery),
       area: Value(area),
@@ -268,7 +342,10 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
       clam: Value(clam),
       dry: Value(dry),
       nimble: Value(nimble),
-      memo: Value(memo),
+      count: Value(count),
+      type: Value(type),
+      updatedAt: Value(updatedAt),
+      favorite: Value(favorite),
     );
   }
 
@@ -278,6 +355,7 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
     return MyBrand(
       id: serializer.fromJson<int>(json['id']),
       brand: serializer.fromJson<String>(json['brand']),
+      subName: serializer.fromJson<String>(json['subName']),
       kana: serializer.fromJson<String>(json['kana']),
       brewery: serializer.fromJson<String>(json['brewery']),
       area: serializer.fromJson<String>(json['area']),
@@ -287,7 +365,10 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
       clam: serializer.fromJson<double>(json['clam']),
       dry: serializer.fromJson<double>(json['dry']),
       nimble: serializer.fromJson<double>(json['nimble']),
-      memo: serializer.fromJson<String>(json['memo']),
+      count: serializer.fromJson<int>(json['count']),
+      type: serializer.fromJson<String>(json['type']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      favorite: serializer.fromJson<bool>(json['favorite']),
     );
   }
   @override
@@ -296,6 +377,7 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'brand': serializer.toJson<String>(brand),
+      'subName': serializer.toJson<String>(subName),
       'kana': serializer.toJson<String>(kana),
       'brewery': serializer.toJson<String>(brewery),
       'area': serializer.toJson<String>(area),
@@ -305,13 +387,17 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
       'clam': serializer.toJson<double>(clam),
       'dry': serializer.toJson<double>(dry),
       'nimble': serializer.toJson<double>(nimble),
-      'memo': serializer.toJson<String>(memo),
+      'count': serializer.toJson<int>(count),
+      'type': serializer.toJson<String>(type),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'favorite': serializer.toJson<bool>(favorite),
     };
   }
 
   MyBrand copyWith(
           {int? id,
           String? brand,
+          String? subName,
           String? kana,
           String? brewery,
           String? area,
@@ -321,10 +407,14 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
           double? clam,
           double? dry,
           double? nimble,
-          String? memo}) =>
+          int? count,
+          String? type,
+          DateTime? updatedAt,
+          bool? favorite}) =>
       MyBrand(
         id: id ?? this.id,
         brand: brand ?? this.brand,
+        subName: subName ?? this.subName,
         kana: kana ?? this.kana,
         brewery: brewery ?? this.brewery,
         area: area ?? this.area,
@@ -334,12 +424,16 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
         clam: clam ?? this.clam,
         dry: dry ?? this.dry,
         nimble: nimble ?? this.nimble,
-        memo: memo ?? this.memo,
+        count: count ?? this.count,
+        type: type ?? this.type,
+        updatedAt: updatedAt ?? this.updatedAt,
+        favorite: favorite ?? this.favorite,
       );
   MyBrand copyWithCompanion(MyBrandsCompanion data) {
     return MyBrand(
       id: data.id.present ? data.id.value : this.id,
       brand: data.brand.present ? data.brand.value : this.brand,
+      subName: data.subName.present ? data.subName.value : this.subName,
       kana: data.kana.present ? data.kana.value : this.kana,
       brewery: data.brewery.present ? data.brewery.value : this.brewery,
       area: data.area.present ? data.area.value : this.area,
@@ -349,7 +443,10 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
       clam: data.clam.present ? data.clam.value : this.clam,
       dry: data.dry.present ? data.dry.value : this.dry,
       nimble: data.nimble.present ? data.nimble.value : this.nimble,
-      memo: data.memo.present ? data.memo.value : this.memo,
+      count: data.count.present ? data.count.value : this.count,
+      type: data.type.present ? data.type.value : this.type,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      favorite: data.favorite.present ? data.favorite.value : this.favorite,
     );
   }
 
@@ -358,6 +455,7 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
     return (StringBuffer('MyBrand(')
           ..write('id: $id, ')
           ..write('brand: $brand, ')
+          ..write('subName: $subName, ')
           ..write('kana: $kana, ')
           ..write('brewery: $brewery, ')
           ..write('area: $area, ')
@@ -367,20 +465,39 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
           ..write('clam: $clam, ')
           ..write('dry: $dry, ')
           ..write('nimble: $nimble, ')
-          ..write('memo: $memo')
+          ..write('count: $count, ')
+          ..write('type: $type, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('favorite: $favorite')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, brand, kana, brewery, area, gorgeous,
-      mellow, profound, clam, dry, nimble, memo);
+  int get hashCode => Object.hash(
+      id,
+      brand,
+      subName,
+      kana,
+      brewery,
+      area,
+      gorgeous,
+      mellow,
+      profound,
+      clam,
+      dry,
+      nimble,
+      count,
+      type,
+      updatedAt,
+      favorite);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is MyBrand &&
           other.id == this.id &&
           other.brand == this.brand &&
+          other.subName == this.subName &&
           other.kana == this.kana &&
           other.brewery == this.brewery &&
           other.area == this.area &&
@@ -390,12 +507,16 @@ class MyBrand extends DataClass implements Insertable<MyBrand> {
           other.clam == this.clam &&
           other.dry == this.dry &&
           other.nimble == this.nimble &&
-          other.memo == this.memo);
+          other.count == this.count &&
+          other.type == this.type &&
+          other.updatedAt == this.updatedAt &&
+          other.favorite == this.favorite);
 }
 
 class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
   final Value<int> id;
   final Value<String> brand;
+  final Value<String> subName;
   final Value<String> kana;
   final Value<String> brewery;
   final Value<String> area;
@@ -405,10 +526,14 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
   final Value<double> clam;
   final Value<double> dry;
   final Value<double> nimble;
-  final Value<String> memo;
+  final Value<int> count;
+  final Value<String> type;
+  final Value<DateTime> updatedAt;
+  final Value<bool> favorite;
   const MyBrandsCompanion({
     this.id = const Value.absent(),
     this.brand = const Value.absent(),
+    this.subName = const Value.absent(),
     this.kana = const Value.absent(),
     this.brewery = const Value.absent(),
     this.area = const Value.absent(),
@@ -418,11 +543,15 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
     this.clam = const Value.absent(),
     this.dry = const Value.absent(),
     this.nimble = const Value.absent(),
-    this.memo = const Value.absent(),
+    this.count = const Value.absent(),
+    this.type = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.favorite = const Value.absent(),
   });
   MyBrandsCompanion.insert({
     this.id = const Value.absent(),
     required String brand,
+    this.subName = const Value.absent(),
     this.kana = const Value.absent(),
     this.brewery = const Value.absent(),
     this.area = const Value.absent(),
@@ -432,11 +561,15 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
     this.clam = const Value.absent(),
     this.dry = const Value.absent(),
     this.nimble = const Value.absent(),
-    this.memo = const Value.absent(),
+    this.count = const Value.absent(),
+    this.type = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.favorite = const Value.absent(),
   }) : brand = Value(brand);
   static Insertable<MyBrand> custom({
     Expression<int>? id,
     Expression<String>? brand,
+    Expression<String>? subName,
     Expression<String>? kana,
     Expression<String>? brewery,
     Expression<String>? area,
@@ -446,11 +579,15 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
     Expression<double>? clam,
     Expression<double>? dry,
     Expression<double>? nimble,
-    Expression<String>? memo,
+    Expression<int>? count,
+    Expression<String>? type,
+    Expression<DateTime>? updatedAt,
+    Expression<bool>? favorite,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (brand != null) 'brand': brand,
+      if (subName != null) 'sub_name': subName,
       if (kana != null) 'kana': kana,
       if (brewery != null) 'brewery': brewery,
       if (area != null) 'area': area,
@@ -460,13 +597,17 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
       if (clam != null) 'clam': clam,
       if (dry != null) 'dry': dry,
       if (nimble != null) 'nimble': nimble,
-      if (memo != null) 'memo': memo,
+      if (count != null) 'count': count,
+      if (type != null) 'type': type,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (favorite != null) 'favorite': favorite,
     });
   }
 
   MyBrandsCompanion copyWith(
       {Value<int>? id,
       Value<String>? brand,
+      Value<String>? subName,
       Value<String>? kana,
       Value<String>? brewery,
       Value<String>? area,
@@ -476,10 +617,14 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
       Value<double>? clam,
       Value<double>? dry,
       Value<double>? nimble,
-      Value<String>? memo}) {
+      Value<int>? count,
+      Value<String>? type,
+      Value<DateTime>? updatedAt,
+      Value<bool>? favorite}) {
     return MyBrandsCompanion(
       id: id ?? this.id,
       brand: brand ?? this.brand,
+      subName: subName ?? this.subName,
       kana: kana ?? this.kana,
       brewery: brewery ?? this.brewery,
       area: area ?? this.area,
@@ -489,7 +634,10 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
       clam: clam ?? this.clam,
       dry: dry ?? this.dry,
       nimble: nimble ?? this.nimble,
-      memo: memo ?? this.memo,
+      count: count ?? this.count,
+      type: type ?? this.type,
+      updatedAt: updatedAt ?? this.updatedAt,
+      favorite: favorite ?? this.favorite,
     );
   }
 
@@ -501,6 +649,9 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
     }
     if (brand.present) {
       map['brand'] = Variable<String>(brand.value);
+    }
+    if (subName.present) {
+      map['sub_name'] = Variable<String>(subName.value);
     }
     if (kana.present) {
       map['kana'] = Variable<String>(kana.value);
@@ -529,8 +680,17 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
     if (nimble.present) {
       map['nimble'] = Variable<double>(nimble.value);
     }
-    if (memo.present) {
-      map['memo'] = Variable<String>(memo.value);
+    if (count.present) {
+      map['count'] = Variable<int>(count.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (favorite.present) {
+      map['favorite'] = Variable<bool>(favorite.value);
     }
     return map;
   }
@@ -540,6 +700,7 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
     return (StringBuffer('MyBrandsCompanion(')
           ..write('id: $id, ')
           ..write('brand: $brand, ')
+          ..write('subName: $subName, ')
           ..write('kana: $kana, ')
           ..write('brewery: $brewery, ')
           ..write('area: $area, ')
@@ -549,7 +710,10 @@ class MyBrandsCompanion extends UpdateCompanion<MyBrand> {
           ..write('clam: $clam, ')
           ..write('dry: $dry, ')
           ..write('nimble: $nimble, ')
-          ..write('memo: $memo')
+          ..write('count: $count, ')
+          ..write('type: $type, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('favorite: $favorite')
           ..write(')'))
         .toString();
   }
@@ -744,14 +908,14 @@ class $MyBrandTagsTable extends MyBrandTags
       'brand_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES my_brands(id)');
+      $customConstraints: 'REFERENCES my_brands(id) NOT NULL');
   static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
   @override
   late final GeneratedColumn<int> tagId = GeneratedColumn<int>(
       'tag_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES my_tags(id)');
+      $customConstraints: 'REFERENCES my_tags(id) NOT NULL');
   @override
   List<GeneratedColumn> get $columns => [brandId, tagId];
   @override
@@ -947,7 +1111,7 @@ class $MyImagesTable extends MyImages with TableInfo<$MyImagesTable, MyImage> {
       'brand_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES my_brands(id)');
+      $customConstraints: 'REFERENCES my_brands(id) NOT NULL');
   static const VerificationMeta _imagePathMeta =
       const VerificationMeta('imagePath');
   @override
@@ -1161,6 +1325,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
 typedef $$MyBrandsTableCreateCompanionBuilder = MyBrandsCompanion Function({
   Value<int> id,
   required String brand,
+  Value<String> subName,
   Value<String> kana,
   Value<String> brewery,
   Value<String> area,
@@ -1170,11 +1335,15 @@ typedef $$MyBrandsTableCreateCompanionBuilder = MyBrandsCompanion Function({
   Value<double> clam,
   Value<double> dry,
   Value<double> nimble,
-  Value<String> memo,
+  Value<int> count,
+  Value<String> type,
+  Value<DateTime> updatedAt,
+  Value<bool> favorite,
 });
 typedef $$MyBrandsTableUpdateCompanionBuilder = MyBrandsCompanion Function({
   Value<int> id,
   Value<String> brand,
+  Value<String> subName,
   Value<String> kana,
   Value<String> brewery,
   Value<String> area,
@@ -1184,7 +1353,10 @@ typedef $$MyBrandsTableUpdateCompanionBuilder = MyBrandsCompanion Function({
   Value<double> clam,
   Value<double> dry,
   Value<double> nimble,
-  Value<String> memo,
+  Value<int> count,
+  Value<String> type,
+  Value<DateTime> updatedAt,
+  Value<bool> favorite,
 });
 
 class $$MyBrandsTableTableManager extends RootTableManager<
@@ -1206,6 +1378,7 @@ class $$MyBrandsTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> brand = const Value.absent(),
+            Value<String> subName = const Value.absent(),
             Value<String> kana = const Value.absent(),
             Value<String> brewery = const Value.absent(),
             Value<String> area = const Value.absent(),
@@ -1215,11 +1388,15 @@ class $$MyBrandsTableTableManager extends RootTableManager<
             Value<double> clam = const Value.absent(),
             Value<double> dry = const Value.absent(),
             Value<double> nimble = const Value.absent(),
-            Value<String> memo = const Value.absent(),
+            Value<int> count = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<bool> favorite = const Value.absent(),
           }) =>
               MyBrandsCompanion(
             id: id,
             brand: brand,
+            subName: subName,
             kana: kana,
             brewery: brewery,
             area: area,
@@ -1229,11 +1406,15 @@ class $$MyBrandsTableTableManager extends RootTableManager<
             clam: clam,
             dry: dry,
             nimble: nimble,
-            memo: memo,
+            count: count,
+            type: type,
+            updatedAt: updatedAt,
+            favorite: favorite,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String brand,
+            Value<String> subName = const Value.absent(),
             Value<String> kana = const Value.absent(),
             Value<String> brewery = const Value.absent(),
             Value<String> area = const Value.absent(),
@@ -1243,11 +1424,15 @@ class $$MyBrandsTableTableManager extends RootTableManager<
             Value<double> clam = const Value.absent(),
             Value<double> dry = const Value.absent(),
             Value<double> nimble = const Value.absent(),
-            Value<String> memo = const Value.absent(),
+            Value<int> count = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<bool> favorite = const Value.absent(),
           }) =>
               MyBrandsCompanion.insert(
             id: id,
             brand: brand,
+            subName: subName,
             kana: kana,
             brewery: brewery,
             area: area,
@@ -1257,7 +1442,10 @@ class $$MyBrandsTableTableManager extends RootTableManager<
             clam: clam,
             dry: dry,
             nimble: nimble,
-            memo: memo,
+            count: count,
+            type: type,
+            updatedAt: updatedAt,
+            favorite: favorite,
           ),
         ));
 }
@@ -1272,6 +1460,11 @@ class $$MyBrandsTableFilterComposer
 
   ColumnFilters<String> get brand => $state.composableBuilder(
       column: $state.table.brand,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get subName => $state.composableBuilder(
+      column: $state.table.subName,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -1320,8 +1513,23 @@ class $$MyBrandsTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<String> get memo => $state.composableBuilder(
-      column: $state.table.memo,
+  ColumnFilters<int> get count => $state.composableBuilder(
+      column: $state.table.count,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get updatedAt => $state.composableBuilder(
+      column: $state.table.updatedAt,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get favorite => $state.composableBuilder(
+      column: $state.table.favorite,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -1362,6 +1570,11 @@ class $$MyBrandsTableOrderingComposer
 
   ColumnOrderings<String> get brand => $state.composableBuilder(
       column: $state.table.brand,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get subName => $state.composableBuilder(
+      column: $state.table.subName,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
@@ -1410,8 +1623,23 @@ class $$MyBrandsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<String> get memo => $state.composableBuilder(
-      column: $state.table.memo,
+  ColumnOrderings<int> get count => $state.composableBuilder(
+      column: $state.table.count,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get updatedAt => $state.composableBuilder(
+      column: $state.table.updatedAt,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get favorite => $state.composableBuilder(
+      column: $state.table.favorite,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }

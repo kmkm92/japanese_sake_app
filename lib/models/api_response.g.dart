@@ -97,13 +97,13 @@ Map<String, dynamic> _$$FlavorChartImplToJson(_$FlavorChartImpl instance) =>
 _$FlavorTagImpl _$$FlavorTagImplFromJson(Map<String, dynamic> json) =>
     _$FlavorTagImpl(
       id: (json['id'] as num).toInt(),
-      name: json['name'] as String?,
+      tag: json['tag'] as String?,
     );
 
 Map<String, dynamic> _$$FlavorTagImplToJson(_$FlavorTagImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'tag': instance.tag,
     };
 
 _$BrandFlavorTagImpl _$$BrandFlavorTagImplFromJson(Map<String, dynamic> json) =>
@@ -112,6 +112,10 @@ _$BrandFlavorTagImpl _$$BrandFlavorTagImplFromJson(Map<String, dynamic> json) =>
       tagIds: (json['tagIds'] as List<dynamic>)
           .map((e) => (e as num).toInt())
           .toList(),
+      tagNames: (json['tagNames'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$BrandFlavorTagImplToJson(
@@ -119,4 +123,5 @@ Map<String, dynamic> _$$BrandFlavorTagImplToJson(
     <String, dynamic>{
       'brandId': instance.brandId,
       'tagIds': instance.tagIds,
+      'tagNames': instance.tagNames,
     };

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:japanese_sake_app/database/app_database.dart';
 import 'package:japanese_sake_app/providers/database_providers.dart';
+import 'package:japanese_sake_app/ui/screens/my_sake_details_screen.dart';
 import 'package:japanese_sake_app/ui/widgets/radar_chart.dart';
 import '../../providers/sake_providers.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class SakeDetailsScreen extends ConsumerWidget {
   final int sakeId;
@@ -30,8 +30,6 @@ class SakeDetailsScreen extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Text('ID: ${sakeViewModel.sakeDetails?.id}',
-                      //     style: TextStyle(fontSize: 24)),
                       SizedBox(height: 8),
                       Text('Name: ${sakeViewModel.sakeDetails?.brand}',
                           style: TextStyle(fontSize: 24)),
@@ -42,10 +40,27 @@ class SakeDetailsScreen extends ConsumerWidget {
                       Text('Area: ${sakeViewModel.sakeDetails?.area}',
                           style: TextStyle(fontSize: 18)),
                       SizedBox(height: 8),
-                      Text(
-                          'Tags: ${sakeViewModel.sakeDetails?.tags?.tagIds.join(", ")}',
-                          style: TextStyle(fontSize: 18)),
-                      SizedBox(height: 8),
+                      Wrap(
+                        spacing: 6.0,
+                        runSpacing: 3.0,
+                        children:
+                            (sakeViewModel.sakeDetails?.tags?.tagNames ?? [])
+                                .map((tag) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.blue[50],
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              tag,
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      SizedBox(height: 20),
                       if (sakeViewModel.sakeDetails?.chart?.f1 != 0.0 ||
                           sakeViewModel.sakeDetails?.chart?.f2 != 0.0 ||
                           sakeViewModel.sakeDetails?.chart?.f3 != 0.0 ||
@@ -65,15 +80,15 @@ class SakeDetailsScreen extends ConsumerWidget {
                         alignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                            child: Text('追加'),
+                            child: Text('飲んだ'),
                             onPressed: () async {
                               final brand = sakeViewModel.sakeDetails;
                               if (brand != null) {
-                                await ref
+                                final newBrandId = await ref
                                     .read(myBrandsNotifierProvider.notifier)
                                     .addBrand(
                                       MyBrandsCompanion(
-                                        id: drift.Value(brand.id),
+                                        // id: drift.Value(brand.id),
                                         brand: drift.Value(brand.brand),
                                         kana: drift.Value(""),
                                         brewery: drift.Value(brand.brewery),
@@ -90,10 +105,15 @@ class SakeDetailsScreen extends ConsumerWidget {
                                             drift.Value(brand.chart?.f5 ?? 0.0),
                                         nimble:
                                             drift.Value(brand.chart?.f6 ?? 0.0),
-                                        memo: drift.Value(""),
                                       ),
                                     );
-                                Navigator.pop(context); // 一覧画面に戻る
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        MySakeDetailsScreen(id: newBrandId),
+                                  ),
+                                ); // その詳細画面に飛ぶ
                               }
                             },
                           ),

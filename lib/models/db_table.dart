@@ -1,3 +1,4 @@
+import 'package:flutter/scheduler.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'db_table.freezed.dart';
@@ -8,6 +9,7 @@ class MyBrand with _$MyBrand {
   const factory MyBrand({
     required int id,
     required String brand,
+    @Default('') String subName,
     @Default('') String kana,
     @Default('') String brewery,
     @Default('') String area,
@@ -17,7 +19,10 @@ class MyBrand with _$MyBrand {
     @Default(0.0) double clam,
     @Default(0.0) double dry,
     @Default(0.0) double nimble,
-    @Default('') String memo,
+    @Default(0) int count,
+    @Default('') String type,
+    required DateTime updatedAt,
+    @Default(false) bool favorite,
   }) = _MyBrand;
 
   factory MyBrand.fromJson(Map<String, dynamic> json) =>
@@ -32,6 +37,20 @@ class MyTag with _$MyTag {
   }) = _MyTag;
 
   factory MyTag.fromJson(Map<String, dynamic> json) => _$MyTagFromJson(json);
+}
+
+@freezed
+class MyMemo with _$MyMemo {
+  const factory MyMemo({
+    required int id,
+    required int brandId,
+    required String title,
+    @Default('') String memo,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+  }) = _MyMemo;
+
+  factory MyMemo.fromJson(Map<String, dynamic> json) => _$MyMemoFromJson(json);
 }
 
 @freezed

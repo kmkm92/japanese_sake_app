@@ -79,7 +79,7 @@ class FlavorChart with _$FlavorChart {
 class FlavorTag with _$FlavorTag {
   const factory FlavorTag({
     required int id,
-    String? name,
+    String? tag,
   }) = _FlavorTag;
 
   factory FlavorTag.fromJson(Map<String, dynamic> json) =>
@@ -91,6 +91,7 @@ class BrandFlavorTag with _$BrandFlavorTag {
   const factory BrandFlavorTag({
     required int brandId,
     required List<int> tagIds,
+    @Default([]) List<String> tagNames,
   }) = _BrandFlavorTag;
 
   factory BrandFlavorTag.fromJson(Map<String, dynamic> json) =>

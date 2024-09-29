@@ -1105,7 +1105,7 @@ FlavorTag _$FlavorTagFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$FlavorTag {
   int get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
+  String? get tag => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1118,7 +1118,7 @@ abstract class $FlavorTagCopyWith<$Res> {
   factory $FlavorTagCopyWith(FlavorTag value, $Res Function(FlavorTag) then) =
       _$FlavorTagCopyWithImpl<$Res, FlavorTag>;
   @useResult
-  $Res call({int id, String? name});
+  $Res call({int id, String? tag});
 }
 
 /// @nodoc
@@ -1135,16 +1135,16 @@ class _$FlavorTagCopyWithImpl<$Res, $Val extends FlavorTag>
   @override
   $Res call({
     Object? id = null,
-    Object? name = freezed,
+    Object? tag = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      tag: freezed == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -1158,7 +1158,7 @@ abstract class _$$FlavorTagImplCopyWith<$Res>
       __$$FlavorTagImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? name});
+  $Res call({int id, String? tag});
 }
 
 /// @nodoc
@@ -1173,16 +1173,16 @@ class __$$FlavorTagImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = freezed,
+    Object? tag = freezed,
   }) {
     return _then(_$FlavorTagImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      tag: freezed == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -1191,7 +1191,7 @@ class __$$FlavorTagImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$FlavorTagImpl implements _FlavorTag {
-  const _$FlavorTagImpl({required this.id, this.name});
+  const _$FlavorTagImpl({required this.id, this.tag});
 
   factory _$FlavorTagImpl.fromJson(Map<String, dynamic> json) =>
       _$$FlavorTagImplFromJson(json);
@@ -1199,11 +1199,11 @@ class _$FlavorTagImpl implements _FlavorTag {
   @override
   final int id;
   @override
-  final String? name;
+  final String? tag;
 
   @override
   String toString() {
-    return 'FlavorTag(id: $id, name: $name)';
+    return 'FlavorTag(id: $id, tag: $tag)';
   }
 
   @override
@@ -1212,12 +1212,12 @@ class _$FlavorTagImpl implements _FlavorTag {
         (other.runtimeType == runtimeType &&
             other is _$FlavorTagImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.tag, tag) || other.tag == tag));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name);
+  int get hashCode => Object.hash(runtimeType, id, tag);
 
   @JsonKey(ignore: true)
   @override
@@ -1234,7 +1234,7 @@ class _$FlavorTagImpl implements _FlavorTag {
 }
 
 abstract class _FlavorTag implements FlavorTag {
-  const factory _FlavorTag({required final int id, final String? name}) =
+  const factory _FlavorTag({required final int id, final String? tag}) =
       _$FlavorTagImpl;
 
   factory _FlavorTag.fromJson(Map<String, dynamic> json) =
@@ -1243,7 +1243,7 @@ abstract class _FlavorTag implements FlavorTag {
   @override
   int get id;
   @override
-  String? get name;
+  String? get tag;
   @override
   @JsonKey(ignore: true)
   _$$FlavorTagImplCopyWith<_$FlavorTagImpl> get copyWith =>
@@ -1258,6 +1258,7 @@ BrandFlavorTag _$BrandFlavorTagFromJson(Map<String, dynamic> json) {
 mixin _$BrandFlavorTag {
   int get brandId => throw _privateConstructorUsedError;
   List<int> get tagIds => throw _privateConstructorUsedError;
+  List<String> get tagNames => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1271,7 +1272,7 @@ abstract class $BrandFlavorTagCopyWith<$Res> {
           BrandFlavorTag value, $Res Function(BrandFlavorTag) then) =
       _$BrandFlavorTagCopyWithImpl<$Res, BrandFlavorTag>;
   @useResult
-  $Res call({int brandId, List<int> tagIds});
+  $Res call({int brandId, List<int> tagIds, List<String> tagNames});
 }
 
 /// @nodoc
@@ -1289,6 +1290,7 @@ class _$BrandFlavorTagCopyWithImpl<$Res, $Val extends BrandFlavorTag>
   $Res call({
     Object? brandId = null,
     Object? tagIds = null,
+    Object? tagNames = null,
   }) {
     return _then(_value.copyWith(
       brandId: null == brandId
@@ -1299,6 +1301,10 @@ class _$BrandFlavorTagCopyWithImpl<$Res, $Val extends BrandFlavorTag>
           ? _value.tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      tagNames: null == tagNames
+          ? _value.tagNames
+          : tagNames // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -1311,7 +1317,7 @@ abstract class _$$BrandFlavorTagImplCopyWith<$Res>
       __$$BrandFlavorTagImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int brandId, List<int> tagIds});
+  $Res call({int brandId, List<int> tagIds, List<String> tagNames});
 }
 
 /// @nodoc
@@ -1327,6 +1333,7 @@ class __$$BrandFlavorTagImplCopyWithImpl<$Res>
   $Res call({
     Object? brandId = null,
     Object? tagIds = null,
+    Object? tagNames = null,
   }) {
     return _then(_$BrandFlavorTagImpl(
       brandId: null == brandId
@@ -1337,6 +1344,10 @@ class __$$BrandFlavorTagImplCopyWithImpl<$Res>
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      tagNames: null == tagNames
+          ? _value._tagNames
+          : tagNames // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -1345,8 +1356,11 @@ class __$$BrandFlavorTagImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BrandFlavorTagImpl implements _BrandFlavorTag {
   const _$BrandFlavorTagImpl(
-      {required this.brandId, required final List<int> tagIds})
-      : _tagIds = tagIds;
+      {required this.brandId,
+      required final List<int> tagIds,
+      final List<String> tagNames = const []})
+      : _tagIds = tagIds,
+        _tagNames = tagNames;
 
   factory _$BrandFlavorTagImpl.fromJson(Map<String, dynamic> json) =>
       _$$BrandFlavorTagImplFromJson(json);
@@ -1361,9 +1375,18 @@ class _$BrandFlavorTagImpl implements _BrandFlavorTag {
     return EqualUnmodifiableListView(_tagIds);
   }
 
+  final List<String> _tagNames;
+  @override
+  @JsonKey()
+  List<String> get tagNames {
+    if (_tagNames is EqualUnmodifiableListView) return _tagNames;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_tagNames);
+  }
+
   @override
   String toString() {
-    return 'BrandFlavorTag(brandId: $brandId, tagIds: $tagIds)';
+    return 'BrandFlavorTag(brandId: $brandId, tagIds: $tagIds, tagNames: $tagNames)';
   }
 
   @override
@@ -1372,13 +1395,17 @@ class _$BrandFlavorTagImpl implements _BrandFlavorTag {
         (other.runtimeType == runtimeType &&
             other is _$BrandFlavorTagImpl &&
             (identical(other.brandId, brandId) || other.brandId == brandId) &&
-            const DeepCollectionEquality().equals(other._tagIds, _tagIds));
+            const DeepCollectionEquality().equals(other._tagIds, _tagIds) &&
+            const DeepCollectionEquality().equals(other._tagNames, _tagNames));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, brandId, const DeepCollectionEquality().hash(_tagIds));
+      runtimeType,
+      brandId,
+      const DeepCollectionEquality().hash(_tagIds),
+      const DeepCollectionEquality().hash(_tagNames));
 
   @JsonKey(ignore: true)
   @override
@@ -1398,7 +1425,8 @@ class _$BrandFlavorTagImpl implements _BrandFlavorTag {
 abstract class _BrandFlavorTag implements BrandFlavorTag {
   const factory _BrandFlavorTag(
       {required final int brandId,
-      required final List<int> tagIds}) = _$BrandFlavorTagImpl;
+      required final List<int> tagIds,
+      final List<String> tagNames}) = _$BrandFlavorTagImpl;
 
   factory _BrandFlavorTag.fromJson(Map<String, dynamic> json) =
       _$BrandFlavorTagImpl.fromJson;
@@ -1407,6 +1435,8 @@ abstract class _BrandFlavorTag implements BrandFlavorTag {
   int get brandId;
   @override
   List<int> get tagIds;
+  @override
+  List<String> get tagNames;
   @override
   @JsonKey(ignore: true)
   _$$BrandFlavorTagImplCopyWith<_$BrandFlavorTagImpl> get copyWith =>
